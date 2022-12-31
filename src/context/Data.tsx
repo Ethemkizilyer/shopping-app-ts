@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { FoodItems } from "../globalInterface";
 
-interface IDataProps {
+interface AppState {
   topRated: FoodItems[];
   allCategories: FoodItems[];
   dishesNearYou: FoodItems[];
@@ -10,15 +10,15 @@ interface IDataProps {
   cartItems: FoodItems[];
 }
 
-interface AppContext extends IDataProps {
-  addToCart: (item: FoodItems) => void;
-  removeItem: (item: FoodItems) => void;
+interface AppContext extends AppState {
+  ekle: (item: FoodItems) => void;
+  sil: (item: FoodItems) => void;
 }
 
 export const DataContext = React.createContext<AppContext>({} as AppContext);
 
-export function Data(props: IDataProps) {
-  const [state, setState] = useState<IDataProps>({
+function DataProvider({ children }: { children: JSX.Element }) {
+  const [state, setState] = useState<AppState>({
     topRated: [
       {
         id: 1,
@@ -26,7 +26,7 @@ export function Data(props: IDataProps) {
         price: 100,
         url: "/assets/cake.jpg",
         desc: "Very tasty",
-        rate: 4.1
+        rate: 4.1,
       },
       {
         id: 2,
@@ -104,21 +104,77 @@ export function Data(props: IDataProps) {
   const { topRated, allCategories, dishesNearYou, cartItemCount, cartItems } =
     state;
 
-const ekle = (item:FoodItems)=>{
-    const data={...item,quantity:1};
-    if(cartItems.length > 0){
-        const bool =cartItems.some((el)=>el.id===item.id);
-        if(bool){
-            const itemIndex=cartItems.findIndex((el)=>el.id===item.id);
-            const c=[...state.cartItems]
-            // if(c[itemIndex]["quantity"]){
-            //     c[itemIndex]["quantity"]! += 1
-            // }
+  const ekle = (item: FoodItems) => {
+    const data = { ...item, quantity: 1 };
+    if (cartItems.length > 0) {
+      //  2 cases
+      const bool = cartItems.some((el) => el.id === item.id);
+      if (bool) {
+        const itemIndex = cartItems.findIndex((el) => el.id === item.id);
+        const c = [...state.cartItems];
+        if (c[itemIndex]["quantity"]) {
+          c[itemIndex]["quantity"]! += 1;
         }
+        setState((prevState) => {
+          return { ...prevState, cartItems: c };
+        });
+      } else {
+        setState((prevState) => {
+          return { ...prevState, cartItems: [...state.cartItems, data] };
+        });
+      }
+    } else {
+      setState((prevState) => {
+        return { ...prevState, cartItems: [...state.cartItems, data] };
+      });
     }
+    setState((prevState) => {
+      return { ...prevState, cartItemCount: state.cartItemCount + 1 };
+    });
+  };
+
+  const sil = (item: FoodItems) => {
+    if (cartItems.length > 0) {
+      let bool = state.cartItems.some((i) => i.id === item.id);
+      if (bool) {
+        let itemIndex = state.cartItems.findIndex((el) => el.id === item.id);
+        const c = [...state.cartItems];
+        // if qty > 1 then reduce by 1 else we will be splicing
+        if (cartItems[itemIndex]["quantity"] === 1) {
+          c.splice(itemIndex, 1);
+          setState((prevState) => {
+            return { ...prevState, cartItems: c };
+          });
+        } else {
+          c[itemIndex]["quantity"]! -= 1;
+          setState((prevState) => {
+            return { ...prevState, cartItems: c };
+          });
+        }
+        if (cartItemCount !== 0) {
+          setState((prevState) => {
+            return { ...prevState, cartItemCount: state.cartItemCount - 1 };
+          });
+        }
+      }
+    }
+  };
+
+  return (
+    <DataContext.Provider
+      value={{
+        topRated,
+        allCategories,
+        dishesNearYou,
+        cartItemCount,
+        cartItems,
+        ekle,
+        sil,
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  );
 }
 
-  return <div>
-
-  </div>;
-}
+export default DataProvider;

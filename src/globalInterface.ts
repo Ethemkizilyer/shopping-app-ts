@@ -5,5 +5,5 @@ export interface FoodItems {
     url:string;
     desc:string;
     rate:number;
-    // quantity:number;
+    quantity?:number;
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Data } from '../../context/Data';
 import {useNavigate} from "react-router-dom"
 import "./Header.css"
 
