@@ -9,20 +9,20 @@ export function Footer (props: IFooterProps) {
     <footer>
       <div className="footer">
         <div style={{ marginLeft: 20 }}>
-          <h4 className="fw-600">Sweet Dish</h4>
+          <h4 className="fw-600">Bakar Tat</h4>
         </div>
         <div className="about-us">
           <div>
-            <h5 className="fw-600">About Us</h5>
+            <h5 className="fw-600">Hakkımızda</h5>
           </div>
           <div>
-            <h5 className="fw-600">T & C</h5>
+            <h5 className="fw-600">E & K</h5>
           </div>
           <div>
-            <h5 className="fw-600">Privacy Policy</h5>
+            <h5 className="fw-600">Güvenlik Politikası</h5>
           </div>
           <div>
-            <h5 className="fw-600">Contact Us</h5>
+            <h5 className="fw-600">Bize Ulaş</h5>
           </div>
         </div>
       </div>
