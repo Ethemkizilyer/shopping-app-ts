@@ -16,7 +16,7 @@ export function DashBoard() {
     <div className="wrapper">
       <div className="content">
         <div className="container mb-5">
-          <h4 className="my-4 fw-600 d-blue">Top rated</h4>
+          <h4 className="my-4 fw-600 d-blue">En çok satanlar</h4>
           <div className="row">
             {topRated.map((items: FoodItems, idx: number) => (
               <div
@@ -35,7 +35,7 @@ export function DashBoard() {
               </div>
             ))}
           </div>
-          <h4 className="my-4 fw-600 d-blue">All Categories</h4>
+          <h4 className="my-4 fw-600 d-blue">Tüm Kategoriler</h4>
           <div className="row">
             {allCategories.map((items: FoodItems, idx: number) => (
               <div
@@ -54,7 +54,7 @@ export function DashBoard() {
               </div>
             ))}
           </div>
-          <h4 className="my-4 fw-600 d-blue">Dishes Near You</h4>
+          <h4 className="my-4 fw-600 d-blue">Yakınınızdaki Yemekler</h4>
           <div className="row">
             {dishesNearYou.map((items: FoodItems, idx: number) => (
               <div

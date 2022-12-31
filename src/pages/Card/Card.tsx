@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { DataContext } from "../../context/Data";
 
@@ -22,17 +23,17 @@ function Card() {
         {totalPrice() ? (
           <CartWithItems
             cartItems={cartItems}
-            addToCart={ekle}
-            removeItem={sil}
+            ekle={ekle}
+            sil={sil}
             totalPrice={totalPrice()}
           />
         ) : (
           <div className="container my-5" style={{ textAlign: "center" }}>
             <img src="/assets/shopping-cart.png" width="200px" alt="icon" />
             <div className="mt-4">
-              <h4 className="orange-red fw-600">Your cart is empty</h4>
+              <h4 className="orange-red fw-600">Sepet Boş🤷‍♂️</h4>
               <h5 className="darkblue fw-600">
-                You can go to home page to view more food items.
+                Sizi bekleyen lezzetler {<Link to={"/"}>Ana Sayfada</Link>}
               </h5>
             </div>
           </div>
@@ -44,50 +45,50 @@ function Card() {
 
 const CartWithItems = ({
   cartItems,
-  addToCart,
-  removeItem,
+  ekle,
+  sil,
   totalPrice,
 }: {
   cartItems: FoodItems[];
-  addToCart: (item: FoodItems) => void;
-  removeItem: (item: FoodItems) => void;
+  ekle: (item: FoodItems) => void;
+  sil: (item: FoodItems) => void;
   totalPrice: number;
 }) => {
   const checkout = () => {
-    swal("Good job!", "Your order is placed successfully!", "success").then(
+    swal("Tebrikler!", "Şiparişiniz Başarıyla Verildi!", "success").then(
       () => {
-        window.location.href = "/cart";
+        window.location.href = "/card";
       }
     );
   };
   return (
     <div className="container mb-5">
-      <h4 className="my-4 my-cart">My Cart</h4>
+      <h4 className="my-4 my-cart">Sepetim</h4>
       <div className="d-flex my-3" style={{ justifyContent: "space-between" }}>
-        <h4 className="fw-600">Summary</h4>
+        <h4 className="fw-600">Güncel</h4>
         <h4 className="fw-600" style={{ marginRight: "49%" }}>
-          Cart
+          Ürün
         </h4>
       </div>
-      {/* Left Section */}
+   
       <div className="d-flex">
         <div className="row" style={{ width: "50%" }}>
           <div className="col-md-4">
-            <h6>Total:</h6>
-            <h6>Promo Code:</h6>
-            <h6>Shipping:</h6>
+            <h6>Fiyat:</h6>
+            <h6>Promosyon Kodu:</h6>
+            <h6>Kargo Ücreti:</h6>
             <div className="my-3 line w-120"></div>
-            <h6>Subtotal:</h6>
+            <h6>Toplam:</h6>
           </div>
           <div className="col-md-4">
-            <h6>Rs {totalPrice}</h6>
-            <h6>SWEETDISH</h6>
-            <h6>Rs 50</h6>
+            <h6>TL {totalPrice}</h6>
+            <h6>BAKARLARMİ</h6>
+            <h6>TL 50</h6>
             <div className="my-3 line w-60"></div>
-            <h6>Rs {totalPrice + 50}</h6>
+            <h6>TL {totalPrice + 50}</h6>
           </div>
         </div>
-        {/* Right Section */}
+      
         <div className="row" style={{ width: "50%" }}>
           <div style={{ maxWidth: "70%" }} className="col-md-12">
             <ul style={{ padding: 0 }}>
@@ -106,7 +107,7 @@ const CartWithItems = ({
                       <button
                         className="remove"
                         type="button"
-                        onClick={() => removeItem(item)}
+                        onClick={() => sil(item)}
                       >
                         -
                       </button>
@@ -114,7 +115,7 @@ const CartWithItems = ({
                       <button
                         className="add"
                         type="button"
-                        onClick={() => addToCart(item)}
+                        onClick={() => ekle(item)}
                       >
                         +
                       </button>
@@ -129,13 +130,13 @@ const CartWithItems = ({
         </div>
       </div>
 
-      {/* Checkout Button */}
+
       <div
         className="d-flex justify-content-end"
         style={{ width: "80%", marginTop: "2%" }}
       >
         <button onClick={checkout} className="btn btn-primary" type="button">
-          Checkout
+          Sipariş Ver
         </button>
       </div>
     </div>
