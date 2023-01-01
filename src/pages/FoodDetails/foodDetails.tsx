@@ -31,7 +31,7 @@ export function FoodDetails() {
       <div className="food-details">
         <div className="container mb-5">
           <div className="container mb-5">
-            <h4 className="my-4 fw-600">Add Item to cart</h4>
+            <h4 className="my-4 fw-600">Sepete Ürün Ekle</h4>
             <div className="row">
               <div className="col-md-4" style={{ cursor: "pointer" }}>
                 <img
@@ -43,25 +43,25 @@ export function FoodDetails() {
                 />
               </div>
               <div className="col-md-4" style={{ cursor: "pointer" }}>
-                <h5 className="my-4 fw-600">Name: {state.name}</h5>
-                <h5 className="my-4 fw-600">Price: {state.price}</h5>
-                <h5 className="my-4 fw-600">Description: {state.desc}</h5>
-                <h5 className="my-4 fw-600">Rating: {state.rate} *</h5>
+                <h5 className="my-4 fw-600">Ürün Adı: {state.name}</h5>
+                <h5 className="my-4 fw-600">Fiyatı: {state.price}</h5>
+                <h5 className="my-4 fw-600">Açıklama: {state.desc}</h5>
+                <h5 className="my-4 fw-600">Değerlendirme: {state.rate} *</h5>
                 <div>
                   <button className="btn btn-primary" onClick={goCart}>
-                    Go to Cart
+                    Sepete Git
                   </button>
                   <button
                     className="mx-3 btn btn-success"
                     onClick={eklem}
                   >
-                    Add Item
+                    Ekle
                   </button>
                   <button
                     className="btn btn-danger"
                     onClick={sile}
                   >
-                    Remove Item
+                    Sil
                   </button>
                 </div>
               </div>
