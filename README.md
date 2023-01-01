@@ -1,3 +1,4 @@
+![shoppingts](https://user-images.githubusercontent.com/106928233/210177961-58189dfc-3fa4-429d-858e-86cce1295c35.gif)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
