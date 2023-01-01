@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {useNavigate} from "react-router-dom"
+import { DataContext } from '../../context/Data';
 import "./Header.css"
 
 export interface IHeaderProps {
 }
 
 export function Header (props: IHeaderProps) {
-    // const {cartItemCount}=React.useContext(Data)
+    const { cartItemCount } = React.useContext(DataContext);
     const navigate=useNavigate()
 
     const goHome=()=>{
@@ -29,7 +30,7 @@ export function Header (props: IHeaderProps) {
         style={{width:300,justifyContent:"space-evenly",paddingTop:3}}
         >
             <i onClick={goCart} className="fa fa-shopping-cart cart-icon"></i>
-            <span className="cart-count">9</span>
+            <span className="cart-count">{cartItemCount}</span>
             <h5 className='login'>Giriş</h5>
             <h5 className='register'>Kayıt</h5>
         </div>
